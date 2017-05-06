@@ -69,10 +69,6 @@
 	</style>
 </head>
 </body>
-<?php
-require "component/navbar.inc.php";
-require "component/table.inc.php";
-?>
 	    		
 </body>
 <!--   Core JS Files   -->
