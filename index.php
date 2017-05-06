@@ -72,10 +72,7 @@
 <?php
 require "component/navbar.inc.php";
 require "component/table.inc.php";
-include "connectDB_func/connect.php";
-
-
-echo $cat->name ;
+require "component/uploadfile.inc.php"
 ?>
 	    		
 </body>
