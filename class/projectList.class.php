@@ -10,7 +10,6 @@ class ProjectList{
         for ($i=0; $i < $res->rowCount() ; $i++) { 
             $row = $res->fetch(PDO::FETCH_OBJ);
             $project[$i] = new project($i+1);
-            $i++;
             # code...
         }
     }

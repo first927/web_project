@@ -41,6 +41,9 @@ class member{
     public function getname(){
         return $name;
     }
+    public function changName($newName){
+        
+    }
 
 }
 ?>
