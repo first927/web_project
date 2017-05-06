@@ -73,7 +73,10 @@
 require "component/navbar.inc.php";
 require "component/table.inc.php";
 include "connectDB_func/connect.php";
-$con->exec("INSERT INTO `category`( `name`) VALUES ('cpe04')");
+$res = $con->query("select * from category");
+$cat = $res->fetch(PDO::FETCH_OBJ);
+
+echo $cat->name ;
 ?>
 	    		
 </body>
