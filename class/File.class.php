@@ -43,6 +43,10 @@ class File{
         return "file name : ".$this->name;
     }
 
+    public function getOwnerId(){
+        return $member->id;
+    }
+
 
 }
 

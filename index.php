@@ -73,8 +73,7 @@
 require "component/navbar.inc.php";
 require "component/table.inc.php";
 include "connectDB_func/connect.php";
-$res = $con->query("select * from category");
-$cat = $res->fetch(PDO::FETCH_OBJ);
+
 
 echo $cat->name ;
 ?>
