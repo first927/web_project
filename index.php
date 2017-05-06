@@ -72,6 +72,7 @@
 <?php
 require "component/navbar.inc.php";
 require "component/table.inc.php";
+require "component/uploadfile.inc.php"
 ?>
 	    		
 </body>
