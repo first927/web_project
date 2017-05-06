@@ -72,6 +72,8 @@
 <?php
 require "component/navbar.inc.php";
 require "component/table.inc.php";
+include "connectDB_func/connect.php";
+$con->exec("INSERT INTO `category`( `name`) VALUES ('cpe04')");
 ?>
 	    		
 </body>
