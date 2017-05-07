@@ -70,9 +70,11 @@
 </head>
 </body>
 <?php
+require "connectDB_func/connect.php";
 require "component/navbar.inc.php";
 require "component/table.inc.php";
-require "component/uploadfile.inc.php"
+require "connectDB_func/get-set.inc.php";
+require "connectDB_func/helper_function.php";
 ?>
 	    		
 </body>

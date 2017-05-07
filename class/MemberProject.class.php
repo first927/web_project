@@ -16,7 +16,7 @@ class MemberProject{
     }
 
     public function __toString(){
-        return "member : ".member->getName()." work for : ".$project ;
+        return "member : ".$this->member->getName()." work for : ".$project ;
     }
 }
 

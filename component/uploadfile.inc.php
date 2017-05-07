@@ -1,5 +1,7 @@
-<?php
+<script type="text/javascript">
 function doUpload(){
+
+<?php
 	// Check if a file has been uploaded
 if(isset($_FILES['uploaded_file'])) {
     // Make sure the file was sent without errors
@@ -47,8 +49,11 @@ if(isset($_FILES['uploaded_file'])) {
 else {
     echo 'Error! A file was not sent!';
 }
-}
 ?>
+}
+
+
+</script>
 
 <form action="" method="POST" role="form" enctype="multipart/form-data">
 	<div class="form-group">
