@@ -1,3 +1,7 @@
+<?php
+
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -65,16 +69,93 @@
 		    padding-right: 15px;
 		    padding-left: 15px;
 		}
+		.modal-header, h3, .close {
+            background-color: purple;
+            color:white !important;
+            text-align: center;
+            font-size: 30px;
+        }
 
 	</style>
 </head>
 </body>
 <?php
 	require "connectDB_func/connect.php";
-	require "component/navbar.inc.php";
+	if($_SESSION['type'] == "Admin"){
+		require "component/navbarAdmin.inc.php";
+	}else{
+		require "component/navbarHome.inc.php";
+	}
+	
 	require "connectDB_func/get-set.inc.php";
 	require "connectDB_func/helper_function.php";
+
+	$idPodject = $_GET["id"];
+	$idMem = $_SESSION['memId'];
+	$project = new Project($idPodject);
+	$title = $project->getElement("title");
+	$category = $project->getElement("category");
+	$detail = $project->getElement("detail");
+	$editDate = $project->getElement("editDate");
+	$publish = $project->getElement("publish");
+	$coPerson = $project->getCoPerson();
+	$filelist = $project->getLocalFile();
 ?>
+
+<div class="container">
+	<div class="card">
+		<div class="card-header" data-background-color="purple">
+			<h4 class="title"><?php echo $title; ?> Project</h4>
+			<p class="category">Here is a subtitle for this table</p>
+		</div>
+		<div >
+			<div>
+				<br><br>
+			<label  class="col-md-2">PROJECT DETAIL:</label>
+			<p><?php echo $detail; ?></p>
+			<label  class="col-md-2">CATEGORY:</label>
+			<p><?php echo $category->getName(); ?></p>
+			<label  class="col-md-2">LAST MODIFY:</label>
+			<p><?php echo $editDate; ?></p>
+			<label  class="col-md-2">PUBLISH DATE:</label>
+			<p><?php echo $publish; ?></p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--showfile-->
+<?php
+include "component/uploadfile.inc.php";
+include "component/downloadfile.inc.php";
+
+?>
+<!--collaborator-->
+
+<div class="col-sm-2">
+	<label for="">COLLABORATOR:</label>
+</div>
+<?php
+	for ($i=0; $i < count($coPerson); $i++) { 
+		$name = $coPerson[$i]->getElement("name");
+	?>
+		<div class="col-sm-2">
+				<div class="card card-stats">
+					<div class="card-header" data-background-color="orange">
+						<i class="material-icons">person</i>
+					</div>
+					<div class="card-content">
+						<p class="category">Used Space</p>
+						<h4 class="title"><small>MR.</small><?php echo $name; ?></h4>
+					</div>
+					<div class="card-footer">
+						<div class="stats">
+							<i class="material-icons">assignment ind</i> <a href="#pablo">view frofile</a>
+						</div>
+					</div>
+				</div>
+			</div>
+<?php	} ?>
+
 </body>
 <!--   Core JS Files   -->
 	<script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>

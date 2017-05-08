@@ -37,7 +37,7 @@
 		    -->
 
 			<div class="logo">
-				<a href="../" class="simple-text">
+				<a href="../indexAdmin.php" class="simple-text">
 					Home
 				</a>
 			</div>
@@ -45,19 +45,19 @@
 	    	<div class="sidebar-wrapper">
 				<ul class="nav">
 	                <li class="active">
-	                    <a href="user.html">
+	                    <a href="user.php">
 	                        <i class="material-icons">person</i>
 	                        <p>User Profile</p>
 	                    </a>
 	                </li>
 	                <li>
-	                    <a href="userManagement.html">
+	                    <a href="userManagement.php">
 	                        <i class="material-icons">content_paste</i>
 	                        <p>User management</p>
 	                    </a>
 	                </li>
 	                <li>
-	                    <a href="projectManagement.html">
+	                    <a href="projectManagement.php">
 	                        <i class="material-icons">library_books</i>
 	                        <p>Project management</p>
 	                    </a>

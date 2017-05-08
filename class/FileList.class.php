@@ -1,31 +1,28 @@
 <?php
 
 class FileList{
-    private $file;
+    private $filelist;
 
     function __construct(){
-        $res = $GLOBAL['con']->query("select * from file");
-
-        $i = 0;
-        
+        $res = $GLOBALS['con']->query("select * from file");
         for ($i=0; $i < $res->rowCount() ; $i++) { 
             $row = $res->fetch(PDO::FETCH_OBJ);
-            $file[$i] = new File($i+1);
-            # code...
+            $this->filelist[$i] = new File($row->id);
         }
     }
 
     public function getByMember($memberId){
         $result;
-        $i = 0;
         for ($i=0; $i < count($file); $i++) {
             if($file[$i]->getOwnerId() == $memberId){
-                $result[$i] = file[$i];
+                $result[$i] = $this->filelist[$i];
             }
-            
-            # code...
         }
         return $result ;
+    }
+    public function getAllFile(){
+
+        return $this->filelist;
     }
 
 }

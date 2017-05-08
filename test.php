@@ -22,6 +22,14 @@
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
 	<style>
+		#myCard{
+			overflow:auto;
+			width: 90%; 
+			height:500px; 
+			font-size: 14px;
+			margin-left: 5%;
+			margin-right: 5%;
+		}
 		pre.prettyprint{
 		    background-color: #eee;
 		    border: 0px;
@@ -74,9 +82,87 @@
 	require "component/navbar.inc.php";
 	require "connectDB_func/get-set.inc.php";
 	require "connectDB_func/helper_function.php";
+    require "component/searchBar.inc.php";
+	//require "component/uploadfile.inc.php";
+	?>
+	<div class="card card-stats">
+	<div class="card-header" data-background-color="orange">
+		<i class="material-icons">content_copy</i>
+	</div>
+	<div class="card-content">
+		<p class="category">Used Space</p>
+		<h3 class="title">49/50<small>GB</small></h3>
+	</div>
+	<div class="card-footer">
+		<div class="stats">
+			<i class="material-icons text-danger">warning</i> <a href="#pablo">Get More Space...</a>
+		</div>
+	</div>
+</div>
+<?php
+    $list = DB_getAllProject();
+    $i = 0;
+	?>
+	<h1 style="margin-left:10%">Project</h1>
+	<div id="myCard"><?php
+    for ($i=0; $i < count($list); $i++) { 
+        $title = $list[$i]->getElement("title"); ?>
+        
+    	<div class='col-md-4' >
+				<div class='card'>
+					<div class='card-header card-chart' data-background-color='orange'>
+						<div class='ct-chart' id='dailySalesChart'></div>
+					</div>
+					<div class='card-content'>
+						<h4 class='title' id='myTitle' ><?php echo $title; ?></h4>
+						<p class='category'><span class='text-success'><i class='fa fa-long-arrow-up'></i> 55%  </span> increase in today sales.</p>
+					</div>
+					<div class='card-footer'>
+						<div class='stats'>
+							<i class='material-icons'>access_time</i> updated 4 minutes ago
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php
+        # code...
+    }
 ?>
+</div>
+
 </body>
 <!--   Core JS Files   -->
+    <script>
+        function myFunction() {
+        // Declare variables 
+        var input , myText , myCard ,detail, text, i , j;
+		input = document.getElementById("search");
+		myText = input.value.toUpperCase();
+
+        myHeadCard = document.getElementById("myCard");
+
+        myCard = myHeadCard.getElementsByTagName("div");
+		
+        for(i = 0 ; i < myCard.length; i+=7){
+			//alert(myCard.length);
+			detail = myCard[i].getElementsByTagName("div");
+			//alert(detail.length);
+			text = detail[3].getElementsByTagName("h4");
+			//text.innerHTML = "AAA";
+			//alert(text.innerHTML);
+			//alert(text[0].innerHTML);
+			//alert(text.innerHTML);
+			if(text[0].innerHTML.toUpperCase().indexOf(myText) > -1){
+				//alert("myCard555555");
+				myCard[i].style.display="";
+			}
+			else{
+				//alert("myCard55555566666");
+				myCard[i].style.display = "none";
+			}
+		}
+		}
+    </script>
 	<script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="assets/js/material.min.js" type="text/javascript"></script>
