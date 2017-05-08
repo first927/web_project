@@ -5,7 +5,7 @@ function DB_getAllMember(){
     $i = 0;
     for ($i=0; $i < $res->rowCount(); $i++) {
         $row = $res->fetch(PDO::FETCH_OBJ);
-        $result[$i] = new member($row->id);
+        $result[$i] = new Member($row->id);
         # code...
     }
     return $result;
@@ -14,16 +14,28 @@ function DB_getAllMember(){
 function DB_getMemberById($id){
     $res = $GLOBALS['con']->query("select * from member wwhere id = '$id' ");
     $row = $res->fetch(PDO::FETCH_OBJ);
-    return new member($row->id);
+    return new Member($row->id);
+
 }
 
-function DB_delMember(){
+function DB_delMember($id){
     $res = $GLOBALS['con']->exec("DELETE FROM `member` WHERE id = '$id' ");
 }
 
 
 
 //Project----------------------------------------------------------------------
+function DB_getProjectByCatId($id)
+{
+    $res = $GLOBALS['con']->query("select * from project wwhere id_category = '$id' ");
+
+    for ($i=0; $i < $res->rowCount(); $i++) {
+        $row = $res->fetch(PDO::FETCH_OBJ);
+        $result[$i] = new Project($row->id);
+        # code...
+    }
+    return $result;
+}
 function DB_getAllProject(){
     $result ;
      $res = $GLOBALS['con']->query("select * from project");
@@ -66,6 +78,14 @@ function DB_getAllFile(){
     return $result;
 }
 
+function DB_uploadFile($idPro,$idMem,$name,$mime,$size,$data,$uploadDate){
+    $GLOBALS['con']->exec("INSERT INTO file (`id_pro`, `id_mem`, `name`, `mime`, `size`, `data`, `upload_date`) VALUES (
+                '{$idPro}','{$idMem}','{$name}', '{$mime}', {$size}, '{$data}', NOW()
+            )");
+    return true;
+    
+}
+
 function DB_getFileById($id){
     $sql = "select * from file where id = '$id' ";
     //echo $sql;
@@ -85,7 +105,7 @@ function DB_getCatByProjectId($pid){
     return new Category($row->id);
 }
 function DB_getAllCat(){
-    $GLOBAL['con']->query("select * from category");
+    $res= $GLOBALS['con']->query("select * from category");
     $i = 0;
     for ($i=0; $i < $res->rowCount(); $i++) {
         $row = $res->fetch(PDO::FETCH_OBJ);

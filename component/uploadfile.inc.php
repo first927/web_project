@@ -1,5 +1,24 @@
+<div class="col-md-4"></div>
+<form action="" method="POST" role="form" enctype="multipart/form-data">
+	<div class="form-group col-md-4">
+		<input type="file" class="form-control"  name="uploaded_file">
+        <div class="input-group">
+              <input type="text" readonly="" class="form-control" placeholder="Placeholder w/file chooser...">
+                <span class="input-group-btn input-group-sm">
+                  <button type="button" class="btn btn-fab btn-fab-mini">
+                    <i class="material-icons">attach_file</i>
+                  </button>
+                </span>
+            </div>
+		
+	</div>        
+    <div>
+    <br>
+        <input class="btn btn-round btn-info col-sm-1" type="submit" value="Upload file">
+    </div>
+</form>
+<div class="container"></div>
 <script type="text/javascript">
-function doUpload(){
 
 <?php
 	// Check if a file has been uploaded
@@ -8,59 +27,45 @@ if(isset($_FILES['uploaded_file'])) {
     if($_FILES['uploaded_file']['error'] == 0) {
         // Connect to the database
         $dbLink = new mysqli('localhost', 'WAD_06', 'WAD_06', 'WAD_06');
-        // $con = new PDO("mysql:host=158.108.207.4;dbname=WAD_06","WAD_06","WAD_06");
-        if(mysqli_connect_errno()) {
-            die("MySQL connection failed: ". mysqli_connect_error());
-        }
+
+        // }
         // Gather all required data
+        
         $name = $dbLink->real_escape_string($_FILES['uploaded_file']['name']);
         $mime = $dbLink->real_escape_string($_FILES['uploaded_file']['type']);
         $data = $dbLink->real_escape_string(file_get_contents($_FILES  ['uploaded_file']['tmp_name']));
         $size = intval($_FILES['uploaded_file']['size']);
-        // Create the SQL query
-        $query = "
-            INSERT INTO `file` (
-                `id_pro`, `id_mem`, `name`, `mime`, `size`, `data`, `upload_date`
-            )
-            VALUES (
-                '1','1','{$name}', '{$mime}', {$size}, '{$data}', NOW()
-            )";
+
+        $result = DB_uploadFile($idPodject,$idMem,$name,$mime,$size,$data,date("Y-m-d H:i:s"));
  
         // Execute the query
-        $result = $dbLink->query($query);
+
  
         // Check if it was successfull
         if($result) {
-            echo 'Success! Your file was successfully added!';
+            echo "alert('Success! Your file was successfully added!');";
+
         }
         else {
-            echo 'Error! Failed to insert the file'
-               . "<pre>{$dbLink->error}</pre>";
+            echo "alert('Error! Failed to insert the file');";
         }
     }
     else {
-        echo 'An error accured while the file was being uploaded. '
-           . 'Error code: '. intval($_FILES['uploaded_file']['error']);
+        // echo "alert('An error accured while the file was being uploaded. '
+        //    . 'Error code: '. intval($_FILES['uploaded_file']['error'])');";
+        echo "alert('Error! A file was not sent!');";
     }
  
     // Close the mysql connection
     $dbLink->close();
 }
 else {
-    echo 'Error! A file was not sent!';
+    // echo "alert('Error! A file was not sent!');";
 }
 ?>
-}
+
 
 
 </script>
-
-<form action="" method="POST" role="form" enctype="multipart/form-data">
-	<div class="form-group">
-		<input type="file" class="form-control"  name="uploaded_file"><br>
-		<input onclick="doUpload" class="form-control" type="submit" value="Upload file">
-	</div>        
-</form>
-
 
 

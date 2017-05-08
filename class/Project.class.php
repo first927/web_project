@@ -1,12 +1,6 @@
 <?php
 class Project{
     private $arrayData;
-    // private $id;
-    // private $category;
-    // private $title;
-    // private $detail;
-    // private $editDate;
-    // private $publish;
 
     function __construct($id){
         $sql = "select *  from project where id = '$id' ";
@@ -21,15 +15,6 @@ class Project{
         $this->arrayData[id] = $row->id;
 
     }
-
-    // function __construct($id , $catID , $title, $detail , $editDate , $publish){
-    //     $this->id = $id;
-    //     $this->category = new Category($id);
-    //     $this->title = $title;
-    //     $this->detail = $detail;
-    //     $this->editDate = $editDate;
-    //     $this->publish = $publish;
-    // }
     public function getType(){
         return "project";
     }
@@ -43,7 +28,32 @@ class Project{
     function __toString(){
         return "Project : ".$this->arrayData["title"];
     }
-
+    public function getCoPerson(){
+        $result = array();
+        $id = $this->arrayData["id"];
+        $sql = "select * from member_project where id_project = '$id' ";
+        //echo $sql;
+        $res = $GLOBALS['con']->query($sql);
+        for ($i=0; $i < $res->rowCount(); $i++) { 
+            $row = $res->fetch(PDO::FETCH_OBJ);
+            $result[$i] = new Member($row->	id_member);
+            # code...
+        }
+        return $result;
+    }
+    public function getLocalFile(){
+         $result = array();
+        $id = $this->arrayData["id"];
+        $sql = "select * from file where id_pro = '$id' ";
+        //echo $sql;
+        $res = $GLOBALS['con']->query($sql);
+        for ($i=0; $i < $res->rowCount(); $i++) { 
+            $row = $res->fetch(PDO::FETCH_OBJ);
+            $result[$i] = new File($row->id);
+            # code...
+        }
+        return $result;
+    }
     public function getInsertSql(){
         return "INSERT INTO `project`
         (`id_category`, `title`, `detail`, `edit_date`, `publish`) 
@@ -72,15 +82,15 @@ class Project{
         (`id_category`, `title`, `detail`, `edit_date`, `publish`) 
         VALUES 
         (
-            $caiID,
-            $title,
-            $detail,
-            $editDate,
-            $publish
+            '$caiID',
+            '$title',
+            '$detail',
+            '$editDate',
+            '$publish'
 
         )";
         echo $sql;
-        $GLOBAL['con']->exec($sql);
+        $GLOBALS['con']->exec($sql);
 
     }
 

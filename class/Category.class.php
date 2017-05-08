@@ -23,7 +23,7 @@ class Category{
     }
 
     public static function addNewCat($name){
-        $sql = "INSERT INTO `category`(`name`) VALUES ($name)";
+        $sql = "INSERT INTO `category`(`name`) VALUES ('$name')";
         echo $sql;
         $GLOBAL['con']->exec($sql);
     }

@@ -69,7 +69,12 @@
 	</style>
 </head>
 </body>
-	    		
+<?php
+	require "connectDB_func/connect.php";
+	require "component/navbar.inc.php";
+	require "connectDB_func/get-set.inc.php";
+	require "connectDB_func/helper_function.php";
+?>
 </body>
 <!--   Core JS Files   -->
 	<script src="assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>

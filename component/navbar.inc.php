@@ -28,7 +28,7 @@
 				<a href="http://demos.creative-tim.com/material-kit/index.html?ref=material-dashboard">Material Kit</a>
 			</li>
 			<li>
-				<a href="examples/dashboard.html">Material Dashboard</a>
+				<a href="examples/userManagement.php">User Management</a>
 			</li>
 			<li>
                 <a href="https://github.com/creativetimofficial/material-dashboard/issues">Have an issue?</a>
